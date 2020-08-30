@@ -67,7 +67,7 @@ public class GameManager {
                     Logger.info(hint01 + " 出拳 " + parts[2] + " ,对手未出拳。");
                     user.word = parts[2];
                     result = new ProcessResult(username, ProcessResult.KEEP, "");
-                }else{//若都出拳
+                }else{//若都了出拳
                     Logger.info(hint01 + " 出拳 " + parts[2] + " ,对手出拳 " + otherUser.word + "。");
                     user.word = parts[2];
                     result = new ProcessResult(username, ProcessResult.MULTI, "");
