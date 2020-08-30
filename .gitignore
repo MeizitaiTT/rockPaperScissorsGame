@@ -1,0 +1,10 @@
+/target
+.project
+.classpath
+.settings/
+/bin
+target/
+.DS_Store
+*.iml
+.idea/
+tpserver.log.info
