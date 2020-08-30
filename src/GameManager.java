@@ -18,7 +18,7 @@ public class GameManager {
         String username = parts.length > 1 ? parts[1] : "";
         String msg = "";
 
-        String hint01 = "用户 " + username;
+        String curUser = "用户 " + username;
 
         User otherUser = null; // 对手用户
         User user = null; // 当前用户
@@ -26,23 +26,23 @@ public class GameManager {
         switch(parts[0]){
             case "9"://用户登录
                 login(username);
-                Logger.info(hint01 + " 加入了游戏。");
+                Logger.info(curUser + " 加入了游戏。");
                 result = new ProcessResult(username, ProcessResult.OVER, "登录成功。");
                 break;
             case "1":  // 查询在线列表
-                Logger.info(hint01 + " 查询在线列表。");
+                Logger.info(curUser + " 查询在线列表。");
                 for(User u:userMap.values()){
                     msg += u + "\n";
                 }
                 result = new ProcessResult(username, ProcessResult.OVER, msg);
                 break;
             case "2": // 开启战局
-                Logger.info(hint01 + " 开启一个战局。");
+                Logger.info(curUser + " 开启一个战局。");
                 result = startGame(username);
                 break;
             case "3":  // 参加战局
                 String other = parts[2];
-                Logger.info(hint01 + " 参加 " + other + " 的战局。");
+                Logger.info(curUser + " 参加 " + other + " 的战局。");
                 user = userMap.get(username);
                 otherUser = userMap.get(other);
                 if(otherUser == null){
@@ -60,15 +60,15 @@ public class GameManager {
                 }
                 break;
             case "4": // 出拳
-                Logger.info(hint01 + " 出拳 " + parts[2]);
+                Logger.info(curUser + " 出拳 " + parts[2]);
                 user = userMap.get(username);
                 otherUser = fighterMap.get(username);
                 if(otherUser.word.isEmpty()){//若对手未出拳
-                    Logger.info(hint01 + " 出拳 " + parts[2] + " ,对手未出拳。");
+                    Logger.info(curUser + " 出拳 " + parts[2] + " ,对手未出拳。");
                     user.word = parts[2];
                     result = new ProcessResult(username, ProcessResult.KEEP, "");
                 }else{//若都了出拳
-                    Logger.info(hint01 + " 出拳 " + parts[2] + " ,对手出拳 " + otherUser.word + "。");
+                    Logger.info(curUser + " 出拳 " + parts[2] + " ,对手出拳 " + otherUser.word + "。");
                     user.word = parts[2];
                     result = new ProcessResult(username, ProcessResult.MULTI, "");
                     result.otherUsername = otherUser.name;
@@ -82,7 +82,7 @@ public class GameManager {
                 }
                 break;
             case "0": // 退出游戏
-                Logger.info(hint01 + " 离开了游戏。");
+                Logger.info(curUser + " 离开了游戏。");
                 userMap.remove(username);
                 result = new ProcessResult(username, ProcessResult.OVER, "下次再见。");
                 break;
